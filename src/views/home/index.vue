@@ -24,7 +24,7 @@
         &nbsp;
         <dele></dele>
         <clone></clone>
-        <div style="float:right">
+        <div style=" float:right">
           <save></save>
         </div>
       </el-header>
