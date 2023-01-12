@@ -1,4 +1,4 @@
-#[English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文
+# [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文
 
 
 # vue-fabric-editor
