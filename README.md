@@ -1,7 +1,5 @@
-# [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文
 
-
-# vue-fabric-editor
+# vue3-fabric-editor
 [Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于fabric.js和Vue的图片编辑器，可自定义字体、素材、设计模板。
 
 <p align="center"><img src="./src/assets/demo.png" /></p>
