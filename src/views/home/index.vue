@@ -28,7 +28,7 @@
           <save></save>
         </div>
       </el-header>
-      <el-main style=" display: flex; height: calc(100vh - 64px);">
+      <el-main style="display: flex; height: calc(100vh - 64px);">
         <div v-if="show" style="width: 380px; height: 100%; background:#fff; display: flex">
           <el-menu :default-active="menuActive" accordion @select="index => menuActive = index" width="80px">
             <el-menu-item index="1" style="padding:10px">
