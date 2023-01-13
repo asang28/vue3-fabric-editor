@@ -1,7 +1,7 @@
 English| [中文](https://github.com/asang28/vue3-fabric-editor/blob/main/README.md)
 
 Documents are translated using software,You are welcome to submit for inspection.
-# vue-fabric-editor
+# vue3-fabric-editor
 [Demo](http://43.139.122.185:3000/) fabric.js and Vue based image editor, can customize fonts, materials, design templates.
 
 <p align="center"><img src="./src/assets/demo.png" /></p>
