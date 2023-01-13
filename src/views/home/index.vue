@@ -120,7 +120,6 @@ let mSelectMode = ref('') // one | multiple
 let mSelectOneType = ref('') // i-text | group ...
 let mSelectId = ref('')// 选择id
 let mSelectIds = ref([])// 选择id
-// let mSelectActive = ref({})// 选择fabric对象
 
 let event = new EventHandle()
 let canvas = {}
@@ -133,7 +132,6 @@ provide("mSelectMode", mSelectMode)
 provide("mSelectOneType", mSelectOneType)
 provide("mSelectId", mSelectId)
 provide("mSelectIds", mSelectIds)
-// provide("mSelectActive", mSelectActive)
 let menuActive = ref('1')
 let show = ref(false)
 
@@ -143,14 +141,12 @@ onMounted(() => {
     mSelectId.value = e[0].id
     mSelectOneType.value = e[0].type
     mSelectIds.value = e.map(item => item.id)
-    // mSelectActive.value = e[0]
   })
 
   event.on('selectMultiple', (e) => {
     mSelectMode.value = 'multiple'
     mSelectId.value = ''
     mSelectIds.value = e.map(item => item.id)
-    // mSelectActive.value = e[0]
   })
 
   event.on('selectCancel', () => {
@@ -158,7 +154,6 @@ onMounted(() => {
     mSelectIds.value = []
     mSelectMode.value = ''
     mSelectOneType.value = ''
-    // mSelectActive.value = {}
   })
 
 
@@ -167,12 +162,11 @@ onMounted(() => {
   canvas.set('backgroundColor', '#fff')
   show.value = true
 
-  // $Spin.hide();
   event.init(canvas)
-  hotKeyOnLRDU.call(getCurrentInstance())
-  hotKeyOnBackSpace.call(getCurrentInstance())
-  hotkeyOnCtrlC.call(getCurrentInstance())
-  hotkeyOnCtrlV.call(getCurrentInstance())
+  hotKeyOnLRDU.call(canvas)
+  hotKeyOnBackSpace.call(canvas)
+  hotkeyOnCtrlC.call(canvas)
+  hotkeyOnCtrlV.call(canvas)
   // 选中后的删除图标
   setRemoveIcon()
   setControlsStyle(fabric)

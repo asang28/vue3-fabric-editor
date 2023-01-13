@@ -28,8 +28,13 @@
 
 
 <script setup>
+import { ElMessage } from 'element-plus'
 import { v4 as uuid } from 'uuid';
 import { ArrowDown } from '@element-plus/icons-vue'
+import useClipboard from 'vue-clipboard3'
+
+const { toClipboard } = useClipboard()
+
 const canvas = inject("canvas")
 const saveWith = (type) => {
   eval(type)
@@ -59,7 +64,18 @@ const downFile = (fileStr, fileType) => {
 }
 const clipboard = () => {
   const jsonStr = canvas.c.toJSON(['id'])
-  _mixinClipboard(JSON.stringify(jsonStr, null, '\t'))
+  copy(JSON.stringify(jsonStr, null, '\t'))
+}
+
+const copy = async (Msg) => {
+  try {
+    //复制
+    await toClipboard(Msg)
+    ElMessage.success('复制成功')
+  } catch (e) {
+    //复制失败
+    ElMessage.error(e)
+  }
 }
 const clear = () => {
   canvas.c.clear();
