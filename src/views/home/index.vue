@@ -34,17 +34,17 @@
             <el-menu-item index="1" style="padding:10px">
               <el-icon>
                 <Promotion />
-              </el-icon>模板
+              </el-icon>{{ t('templates') }}
             </el-menu-item>
             <el-menu-item index="2" style="padding:10px">
               <el-icon>
                 <EditPen />
-              </el-icon>元素
+              </el-icon>{{ t('elements') }}
             </el-menu-item>
             <el-menu-item index="3" style="padding:10px">
               <el-icon>
                 <Operation />
-              </el-icon>背景
+              </el-icon>{{ t('background') }}
             </el-menu-item>
           </el-menu>
           <div class="content">
@@ -115,6 +115,9 @@ import attribute from '@/components/attribute.vue'
 import EventHandle from '@/utils/eventHandler'
 import { hotKeyOnLRDU, hotKeyOnBackSpace, hotkeyOnCtrlC, hotkeyOnCtrlV } from './modules/hotkeysModules'
 import { fabric } from 'fabric';
+
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 let mSelectMode = ref('') // one | multiple
 let mSelectOneType = ref('') // i-text | group...

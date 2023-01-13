@@ -8,16 +8,16 @@
 
 <template>
   <div>
-    <el-divider content-position="left">尺寸</el-divider>
+    <el-divider content-position="left">{{ t('size') }}</el-divider>
     <el-form :label-width="40">
-      <el-form-item label="宽度" prop="name">
+      <el-form-item :label="t('width')" prop="name">
         <el-input-number :max="2000" :min="1" v-model="width" @change="setSize" size="small"></el-input-number>
       </el-form-item>
-      <el-form-item label="高度" prop="name">
+      <el-form-item :label="t('height')" prop="name">
         <el-input-number :max="2000" :min="1" v-model="height" @change="setSize" size="small"></el-input-number>
       </el-form-item>
     </el-form>
-    <el-divider content-position="left">预设尺寸</el-divider>
+    <el-divider content-position="left">{{ t('default_size') }}</el-divider>
     <el-button-group>
       <el-button v-for="(item, i) in presetSize" :key="i + 'presetSize'" size="small" style="text-align:left"
         @click="setSizeBy(item.width * item.scale, item.height * item.scale)">
@@ -28,6 +28,8 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 let width = ref(900 * 0.5)
 let height = ref(1200 * 0.5)
 let presetSize = reactive([{

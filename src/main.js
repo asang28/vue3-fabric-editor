@@ -17,6 +17,8 @@ import router from './router'
 // svg图标
 import SvgIcon from '@/components/SvgIcon'
 
+import i18n from './lib/i18n/index'
+
 const app = createApp(App)
 
 // 全局方法挂载
@@ -30,6 +32,10 @@ app.use(ElementPlus, {
     locale: locale,
     size: 'small'
 })
+
+// i18n
+app.use(i18n)
+
 // 修改 el-dialog 默认点击遮照为不关闭
 app._context.components.ElDialog.props.closeOnClickModal.default = true
 app.mount('#app')

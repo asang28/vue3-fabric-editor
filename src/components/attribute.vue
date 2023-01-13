@@ -2,23 +2,23 @@
   <div class="box" v-if="mSelectMode === 'one'">
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
-      <el-divider content-position="left">字体</el-divider>
+      <el-divider content-position="left">{{ t('attributes.font') }}</el-divider>
       <el-form label-position="left" :label-width="40">
-        <el-form-item label="尺寸">
+        <el-form-item :label="t('size')">
           <el-input-number v-model="fontAttr.fontSize" @change="(value) => changeCommon('fontSize', value)"
             size="small">
           </el-input-number>
         </el-form-item>
-        <el-form-item label="字体">
+        <el-form-item :label="t('attributes.font')">
           <el-select v-model="fontAttr.fontFamily" @change="changeFontFamily" size="small">
             <el-option v-for="item in fontFamilyList" :value="item" :key="'font-' + item">{{ item }}</el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="背景色">
+        <el-form-item :label="t('background')">
           <el-color-picker v-model="fontAttr.textBackgroundColor"
             @change="(value) => changeCommon('textBackgroundColor', value)" show-alpha size="small" />
         </el-form-item>
-        <el-form-item label="对齐">
+        <el-form-item :label="t('attributes.align')">
           <el-radio-group v-model="fontAttr.textAlign" @change="(value) => changeCommon('textAlign', value)"
             size="small" type="button">
             <el-radio v-for="(item, i) in textAlignList" :label="item" :key="item">
@@ -27,26 +27,26 @@
           </el-radio-group>
         </el-form-item>
         <div style="padding: 5px 0">
-          加粗:<el-switch v-model="fontAttr.fontWeight" active-value="bold" inactive-value="normal" size="small"
+          {{ t('attributes.bold') }}<el-switch v-model="fontAttr.fontWeight" active-value="bold" inactive-value="normal" size="small"
             @change="(value) => changeCommon('fontWeight', value)" />
-          斜体: <el-switch v-model="fontAttr.fontStyle" active-value="italic" inactive-value="normal" size="small"
+            {{ t('attributes.italic') }} <el-switch v-model="fontAttr.fontStyle" active-value="italic" inactive-value="normal" size="small"
             @on-change="(value) => changeCommon('fontStyle', value)" />
           <br />
-          下划: <el-switch v-model="fontAttr.underline" size="small"
+          {{ t('attributes.underline') }} <el-switch v-model="fontAttr.underline" size="small"
             @change="(value) => changeCommon('underline', value)" />
-          中划:<el-switch v-model="fontAttr.linethrough" size="small"
+          {{ t('attributes.stroke') }}<el-switch v-model="fontAttr.linethrough" size="small"
             @change="(value) => changeCommon('linethrough', value)" />
           <br />
-          上划: <el-switch v-model="fontAttr.overline" size="small"
+          {{ t('attributes.swipe_up') }} <el-switch v-model="fontAttr.overline" size="small"
             @change="(value) => changeCommon('overline', value)" />
         </div>
 
-        <el-form-item label="行高">
+        <el-form-item :label="t('attributes.line_height')">
           <el-input-number v-model="fontAttr.lineHeight" @change="(value) => changeCommon('lineHeight', value)"
             size="small" :step="0.1"></el-input-number>
         </el-form-item>
 
-        <el-form-item label="间距">
+        <el-form-item :label="t('attributes.char_spacing')">
           <el-input-number v-model="fontAttr.charSpacing" @change="(value) => changeCommon('charSpacing', value)"
             size="small"></el-input-number>
         </el-form-item>
@@ -54,57 +54,57 @@
     </div>
     <!-- 通用属性 -->
     <div v-show="baseType.includes(mSelectOneType)">
-      <el-divider content-position="left">外观</el-divider>
+      <el-divider content-position="left">{{ t('attributes.exterior') }}</el-divider>
       <el-form label-position="left" :label-width="40">
-        <el-form-item label="颜色">
+        <el-form-item :label="t('color')">
           <el-color-picker v-model="baseAttr.fill" @change="(value) => changeCommon('fill', value)" show-alpha
             size="small" />
         </el-form-item>
-        <el-form-item label="旋转">
+        <el-form-item :label="t('attributes.angle')">
           <el-input-number v-model="baseAttr.angle" :max="360" @change="(value) => changeCommon('angle', value)"
             size="small">
           </el-input-number>
         </el-form-item>
-        <el-form-item label="X轴">
+        <el-form-item :label="t('attributes.left')">
           <el-input-number v-model="baseAttr.left" :max="360" @change="(value) => changeCommon('left', value)"
             size="small"></el-input-number>
         </el-form-item>
-        <el-form-item label="Y轴">
+        <el-form-item :label="t('attributes.top')">
           <el-input-number v-model="baseAttr.top" :max="360" @change="(value) => changeCommon('top', value)"
             size="small"></el-input-number>
         </el-form-item>
-        <el-form-item label="透明">
+        <el-form-item :label="t('attributes.opacity')">
           <el-slider v-model="baseAttr.opacity" @change="(value) => changeCommon('opacity', value)" size="small">
           </el-slider>
         </el-form-item>
       </el-form>
-      <el-divider content-position="left">中划:</el-divider>
+      <el-divider content-position="left">{{ t('attributes.stroke') }}</el-divider>
       <el-form label-position="left" :label-width="40">
-        <el-form-item label="宽度">
+        <el-form-item :label="t('width')">
           <el-input-number v-model="baseAttr.strokeWidth" :max="360"
             @change="(value) => changeCommon('strokeWidth', value)" show-input size="small"></el-input-number>
         </el-form-item>
-        <el-form-item label="颜色">
+        <el-form-item :label="t('color')">
           <el-color-picker v-model="baseAttr.stroke" @change="(value) => changeCommon('stroke', value)" show-alpha
             size="small" />
         </el-form-item>
       </el-form>
 
-      <el-divider content-position="left">阴影</el-divider>
+      <el-divider content-position="left">{{ t('attributes.shadow') }}</el-divider>
       <el-form label-position="left" :label-width="40">
-        <el-form-item label="颜色">
+        <el-form-item :label="t('color')">
           <el-color-picker size="small" v-model="baseAttr.shadow.color"
             @change="(value) => changeShadow('color', value)" show-alpha />
         </el-form-item>
-        <el-form-item label="模糊">
+        <el-form-item :label="t('attributes.blur')">
           <el-input-number v-model="baseAttr.shadow.blur" :max="360" @change="(value) => changeShadow('blur', value)"
             size="small"></el-input-number>
         </el-form-item>
-        <el-form-item label="X轴">
+        <el-form-item :label="t('attributes.offset_x')">
           <el-input-number v-model="baseAttr.shadow.offsetX" :max="360"
             @change="(value) => changeShadow('offsetX', value)" size="small"></el-input-number>
         </el-form-item>
-        <el-form-item label="Y轴">
+        <el-form-item :label="t('attributes.offset_y')">
           <el-input-number v-model="baseAttr.shadow.offsetY" :max="360"
             @change="(value) => changeShadow('offsetY', value)" size="small"></el-input-number>
         </el-form-item>
@@ -113,8 +113,8 @@
 
     <!-- 图片属性 -->
     <div v-show="imgType.includes(mSelectOneType)">
-      <el-divider content-position="left">图片滤镜</el-divider>
-      模糊: <el-slider v-model="imgAttr.blur" :max="1" :min="0" :step="0.1" @change="imgBlur" show-input
+      <el-divider content-position="left">{{ t('attributes.picture_filter') }}</el-divider>
+      {{ t('attributes.blur') }}: <el-slider v-model="imgAttr.blur" :max="1" :min="0" :step="0.1" @change="imgBlur" show-input
         size="small"></el-slider>
     </div>
   </div>
@@ -125,6 +125,8 @@
 import FontFaceObserver from 'fontfaceobserver'
 import fontList from "@/assets/fonts/font";
 import { ElMessage } from 'element-plus';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 let event = inject('event')
 let canvas = inject('canvas')
 let mSelectMode = inject('mSelectMode')

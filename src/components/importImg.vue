@@ -8,14 +8,14 @@
 
 <template>
   <div style="display: inline-block">
-    <el-button @click="insert" size="small">插入图片</el-button>
-    <el-dialog v-model="showModal" title="请选择">
+    <el-button @click="insert" size="small">{{ t('insert_picture') }}</el-button>
+    <el-dialog v-model="showModal" :title="t('please_choose')">
       <el-upload :before-upload="handleUpload">
-        <el-button icon="ios-cloud-upload-outline">选择图片文件</el-button>
+        <el-button icon="ios-cloud-upload-outline">{{ t('select_image') }}</el-button>
       </el-upload>
       <template #footer>
-        <el-button @click="showModal = false, imgFile = null" size="small">取消</el-button>
-        <el-button @click="insertImgFile" size="small">确定</el-button>
+        <el-button @click="showModal = false, imgFile = null" size="small">{{ t('alert.cancel') }}</el-button>
+        <el-button @click="insertImgFile" size="small">{{ t('alert.confirm') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -25,6 +25,8 @@
 <script setup>
 import { getImgStr } from "@/utils/utils";
 import { v4 as uuid } from 'uuid';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const canvas = inject("canvas")
 let showModal = ref(false)
 let imgFile = ref(null)
