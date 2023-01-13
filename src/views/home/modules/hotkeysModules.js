@@ -44,7 +44,7 @@ export function hotKeyOnBackSpace() {
 }
 
 
-// 快捷键ctrl+c
+// 快捷键ctrl+c mac control+c
 export function hotkeyOnCtrlC() {
     if (!this) return
     return onHotKeys(keyNames.ctrlc, (event, handler) => {
@@ -60,14 +60,14 @@ export function hotkeyOnCtrlC() {
     })
 }
 
-// 快捷键ctrl+v
+// 快捷键ctrl+v mac control+v
 export function hotkeyOnCtrlV() {
     if (!this) return
     return onHotKeys(keyNames.ctrlv, (event, handler) => {
         const copyEl = cloneDeep(this.copyEl)
+        if (!copyEl) return ElMessage.warning('暂无复制内容')
         this.copyEl.left += 10 // 让复制那个元素位置偏移，那每次ctrl+v就会不会重叠
         this.copyEl.top += 10
-        if (!copyEl) return ElMessage.warning('暂无复制内容')
         copyEl.id = uuid()  // 更换id
         this.add(copyEl)
         this.setActiveObject(copyEl)

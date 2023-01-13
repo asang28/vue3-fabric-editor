@@ -117,7 +117,7 @@ import { hotKeyOnLRDU, hotKeyOnBackSpace, hotkeyOnCtrlC, hotkeyOnCtrlV } from '.
 import { fabric } from 'fabric';
 
 let mSelectMode = ref('') // one | multiple
-let mSelectOneType = ref('') // i-text | group ...
+let mSelectOneType = ref('') // i-text | group...
 let mSelectId = ref('')// 选择id
 let mSelectIds = ref([])// 选择id
 
