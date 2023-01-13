@@ -2,7 +2,7 @@ English| [中文](https://github.com/asang28/vue3-fabric-editor/blob/main/README
 
 Documents are translated using software,You are welcome to submit for inspection.
 # vue-fabric-editor
-[Demo](https://nihaojob.github.io/vue-fabric-editor/) fabric.js and Vue based image editor, can customize fonts, materials, design templates.
+[Demo](http://43.139.122.185:3000/) fabric.js and Vue based image editor, can customize fonts, materials, design templates.
 
 <p align="center"><img src="./src/assets/demo.png" /></p>
 
@@ -24,8 +24,8 @@ Documents are translated using software,You are welcome to submit for inspection
 ## Use
 ### Startup
 ```
-yarn install
-yarn serve
+npm install
+npm run dev
 ```
 
 ### Custom font
