@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <el-pagination :total="100" />
     <el-container>
       <el-header v-if="show">
         <!-- 导入 -->
