@@ -16,6 +16,7 @@
     "fabric": "^5.2.4",
     "fontfaceobserver": "^2.3.0",
     "hotkeys-js": "^3.10.1",
+    "pinia": "^2.0.28",
     "uuid": "^9.0.0",
     "vue": "3.2.45",
     "vue-clipboard3": "^2.0.0",

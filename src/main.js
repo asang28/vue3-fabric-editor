@@ -13,11 +13,12 @@ import '@/assets/fonts/font.css';
 
 import App from './App.vue';
 import router from './router'
+import store from './store'
 
 // svg图标
 import SvgIcon from '@/components/SvgIcon'
 
-import i18n from './lib/i18n/index'
+import i18n from '@/core/i18n/index'
 
 const app = createApp(App)
 
@@ -25,6 +26,7 @@ const app = createApp(App)
 app.config.globalProperties.$http = axios
 
 app.use(router)
+app.use(store)
 app.component('svg-icon', SvgIcon)
 
 // 使用element-plus 并且设置全局的大小

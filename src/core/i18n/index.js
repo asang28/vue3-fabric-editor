@@ -1,4 +1,14 @@
 import { createI18n } from 'vue-i18n'
+import { getLocal, setLocal } from '@/core/storage/local'
+import { LANG } from '@/config/constants/app'
+
+function getDefaultLang() {
+    const localLang = getLocal(LANG)
+    const defaultLang = localLang || import.meta.env.VITE_DEFAULT_LANG
+    setLocal(LANG, defaultLang)
+    return defaultLang
+}
+
 
 function loadLocaleMessages() {
     const locales = import.meta.globEager('./locales/*.json')
@@ -14,9 +24,10 @@ function loadLocaleMessages() {
     return messages
 }
 
+const lang = getDefaultLang()
 export default createI18n({
-    locale: import.meta.env.VITE_DEFAULT_LANG,
-    fallbackLocale: import.meta.env.VITE_FALLBACKLOCALE,
+    locale: lang,
+    fallbackLocale: lang,
     messages: loadLocaleMessages(),
     enableInSFC: false,
     legacy: false

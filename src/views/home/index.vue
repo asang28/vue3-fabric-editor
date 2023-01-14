@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <el-pagination :total="100" />
     <el-container>
       <el-header v-if="show">
         <!-- 导入 -->
@@ -24,7 +25,8 @@
         &nbsp;
         <dele></dele>
         <clone></clone>
-        <div style=" float:right">
+        <div style=" float:right;">
+          <lang />  
           <save></save>
         </div>
       </el-header>
@@ -98,7 +100,7 @@ import group from '@/components/group.vue'
 import zoom from '@/components/zoom.vue'
 import lock from '@/components/lock.vue'
 import dele from '@/components/del.vue'
-
+import lang from '@/components/lang.vue'
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue'
 import tools from '@/components/tools.vue'
