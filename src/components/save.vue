@@ -7,20 +7,20 @@
 -->
 
 <template>
-  <el-button @click="clear" size="small">清空</el-button>
+  <el-button @click="clear" size="small">{{ t('empty') }}</el-button>
   <el-dropdown :teleported="true" style="margin-left: 10px" @command="saveWith">
     <el-button size="small" type="primary">
-      保存
+      {{ t('keep') }}
       <el-icon>
         <ArrowDown />
       </el-icon>
     </el-button>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="clipboard()">复制到剪切板</el-dropdown-item>
-        <el-dropdown-item command="saveImg()">保存为图片</el-dropdown-item>
-        <el-dropdown-item command="saveSvg()">保存为SVG</el-dropdown-item>
-        <el-dropdown-item command="saveJson()" divided>保存为JSON</el-dropdown-item>
+        <el-dropdown-item command="clipboard()">{{ t('copy_to_clipboard') }}</el-dropdown-item>
+        <el-dropdown-item command="saveImg()">{{ t('save_as_picture') }}</el-dropdown-item>
+        <el-dropdown-item command="saveSvg()">{{ t('save_as_svg') }}</el-dropdown-item>
+        <el-dropdown-item command="saveJson()" divided>{{ t('save_as_json') }}</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -32,7 +32,8 @@ import { ElMessage } from 'element-plus'
 import { v4 as uuid } from 'uuid';
 import { ArrowDown } from '@element-plus/icons-vue'
 import useClipboard from 'vue-clipboard3'
-
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const { toClipboard } = useClipboard()
 
 const canvas = inject("canvas")
@@ -71,7 +72,7 @@ const copy = async (Msg) => {
   try {
     //复制
     await toClipboard(Msg)
-    ElMessage.success('复制成功')
+    ElMessage.success(t('alert.copied_sucessful'))
   } catch (e) {
     //复制失败
     ElMessage.error(e)

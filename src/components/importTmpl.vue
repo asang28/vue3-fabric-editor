@@ -8,7 +8,7 @@
 
 <template>
   <div style="display:inline-block">
-    <el-divider content-position="left">标题模板</el-divider>
+    <el-divider content-position="left">{{ t('title_template') }}</el-divider>
     <el-tooltip :content="item.label" v-for="(item, i) in  list" :key="i + '-bai1-button'" placement="top">
       <img class="tmpl-img" :alt="item.label" :src="item.src" @click="getTempData(item.tempUrl)" />
     </el-tooltip>
@@ -18,6 +18,8 @@
 <script setup>
 import { downFontByJSON } from '@/utils/utils'
 import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const canvas = inject("canvas")
 const { proxy } = getCurrentInstance();
 let jsonFile = ref(null)
@@ -60,7 +62,7 @@ const insertSvgFile = () => {
     canvas.c.loadFromJSON(jsonFile.value, canvas.c.renderAll.bind(canvas.c));
   }).catch((e) => {
     // $Spin.hide();
-    ElMessage('字体加载失败，请重试')
+    ElMessage(t('alert.loading_fonts_failed'))
   })
 }
 // 获取模板数据

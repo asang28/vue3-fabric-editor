@@ -8,43 +8,43 @@
 
 <template>
   <div>
-    <el-divider content-position="left">卡通</el-divider>
+    <el-divider content-position="left">{{ t('cartoon') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(460, 489)" @click="addItem">
     </div>
-    <el-divider content-position="left">卡通水果</el-divider>
+    <el-divider content-position="left">{{ t('fruits') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(386, 409)" @click="addItem">
     </div>
-    <el-divider content-position="left">体育</el-divider>
+    <el-divider content-position="left">{{ t('sports') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(410, 459)" @click="addItem">
     </div>
-    <el-divider content-position="left">秋天</el-divider>
+    <el-divider content-position="left">{{ t('seasons') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(40, 49)" @click="addItem">
     </div>
-    <el-divider content-position="left">计算机</el-divider>
+    <el-divider content-position="left">{{ t('eletronics') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(50, 75)" @click="addItem">
     </div>
-    <el-divider content-position="left">卡通水果</el-divider>
+    <el-divider content-position="left">{{ t('fruits') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(76, 89)" @click="addItem">
     </div>
-    <el-divider content-position="left">服饰</el-divider>
+    <el-divider content-position="left">{{ t('clothes') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(89, 136)" @click="addItem">
     </div>
-    <el-divider content-position="left">旗子</el-divider>
+    <el-divider content-position="left">{{ t('flags') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(137, 151)" @click="addItem">
     </div>
-    <el-divider content-position="left">树木</el-divider>
+    <el-divider content-position="left">{{ t('threes') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(152, 181)" @click="addItem">
     </div>
-    <el-divider content-position="left">食物</el-divider>
+    <el-divider content-position="left">{{ t('food') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(182, 201)" @click="addItem">
     </div>
@@ -52,37 +52,37 @@
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(202, 222)" @click="addItem">
     </div>
-    <el-divider content-position="left">奖牌</el-divider>
+    <el-divider content-position="left">{{ t('medals') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(223, 252)" @click="addItem">
     </div>
-    <el-divider content-position="left">商务</el-divider>
+    <el-divider content-position="left">{{ t('business') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(253, 261)" @click="addItem">
     </div>
-    <el-divider content-position="left">活动</el-divider>
+    <el-divider content-position="left">{{ t('activity') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(262, 270)" @click="addItem">
     </div>
-    <el-divider content-position="left">卡通水果</el-divider>
+    <el-divider content-position="left">{{ t('fruits') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(271, 300)" @click="addItem">
     </div>
-    <el-divider content-position="left">复古</el-divider>
+    <el-divider content-position="left">{{ t('vintage') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(301, 350)" @click="addItem">
     </div>
-    <el-divider content-position="left">卡通</el-divider>
+    <el-divider content-position="left">{{ t('cartoon') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(351, 385)" @click="addItem">
     </div>
 
-    <el-divider content-position="left">动物</el-divider>
+    <el-divider content-position="left">{{ t('animals') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(490, 519)" @click="addItem">
     </div>
 
-    <el-divider content-position="left">手绘</el-divider>
+    <el-divider content-position="left">{{ t('hand_painted') }}</el-divider>
     <div class="box">
       <img :src="`../../svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(0, 39)" @click="addItem">
     </div>
@@ -93,6 +93,8 @@
 
 <script setup>
 import { v4 as uuid } from 'uuid';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const canvas = inject("canvas")
 const fabric = inject("fabric")
 const defaultPosition = {

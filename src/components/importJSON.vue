@@ -8,14 +8,14 @@
 
 <template>
   <div style="display: inline-block">
-    <el-button @click="insert" size="small">导入文件</el-button>
-    <el-dialog v-model="showModal" title="请选择">
+    <el-button @click="insert" size="small">{{ t('import_files') }}</el-button>
+    <el-dialog v-model="showModal" :title="t('please_choose')">
       <el-upload :before-upload="handleUpload">
-        <el-button :icon="UploadFilled"> 选择JSON文件</el-button>
+        <el-button :icon="UploadFilled">{{ $t('select_json') }}</el-button>
       </el-upload>
       <template #footer>
-        <el-button @click="(showModal = false), (jsonFile = null)" size="small">取消</el-button>
-        <el-button @click="insertSvgFile" size="small">确定</el-button>
+        <el-button @click="(showModal = false), (jsonFile = null)" size="small">{{ t('alert.cancel') }}</el-button>
+        <el-button @click="insertSvgFile" size="small">{{ t('alert.confirm') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -25,6 +25,8 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import { downFontByJSON } from '@/utils/utils'
 import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const canvas = inject("canvas")
 let showModal = ref(false)
 let jsonFile = ref(false)
@@ -34,7 +36,7 @@ const insert = () => {
 }
 const insertSvgFile = () => {
   if (!jsonFile.value) {
-    ElMessage('请选择文件')
+    ElMessage(t('alert.select_file'))
     return
   }
   // 加载字体后导入

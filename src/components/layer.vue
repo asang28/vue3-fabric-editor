@@ -8,7 +8,7 @@
 
 <template>
   <div class="box">
-    <el-divider content-position="left" v-if="list.length">图层</el-divider>
+    <el-divider content-position="left" v-if="list.length">{{ t('layers') }}</el-divider>
     <div class="layer-box">
       <div v-for="item in list" @click="selectElement(item.id)" :key="item.id" :class="isSelect(item) && 'active'">
         <el-tooltip :content="item.name || item.text || item.type" placement="left">
@@ -32,6 +32,8 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 let mSelectMode = inject('mSelectMode')
 let mSelectId = inject('mSelectId')
 let mSelectIds = inject('mSelectIds')

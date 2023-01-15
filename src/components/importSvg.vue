@@ -8,22 +8,22 @@
 
 <template>
   <div style="display:inline-block">
-    <el-button @click="insert" size="small">插入SVG元素</el-button>
-    <el-dialog v-model="showModal" title="请选择" @on-ok="insertSvg" @on-cancel="showModal = false">
+    <el-button @click="insert" size="small">{{ t('insert_svg') }}</el-button>
+    <el-dialog v-model="showModal" :title="t('please_choose')" @on-ok="insertSvg" @on-cancel="showModal = false">
       <el-radio-group v-model="insertType" style="padding-bottom:  10px">
-        <el-radio-button label="string">字符串</el-radio-button>
-        <el-radio-button label="file">文件</el-radio-button>
+        <el-radio-button label="string">{{ t('string') }}</el-radio-button>
+        <el-radio-button label="file">{{ t('file') }}</el-radio-button>
       </el-radio-group>
       <!-- 字符串 -->
       <el-input v-if="insertType === 'string'" v-model="svgStr" type="textarea" placeholder="请输入SVG字符" />
       <!-- 文件 -->
       <el-upload v-if="insertType === 'file'" :before-upload="handleUpload">
-        <el-button :icon="UploadFilled"> 选择SVG文件</el-button>
+        <el-button :icon="UploadFilled">{{ t('select_svg') }}</el-button>
       </el-upload>
 
       <template #footer>
-        <el-button @click="showModal = false" size="small">取消</el-button>
-        <el-button @click="insertSvg" size="small">确定</el-button>
+        <el-button @click="showModal = false" size="small">{{ t('alert.cancel') }}</el-button>
+        <el-button @click="insertSvg" size="small">{{ t('alert.confirm') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -33,6 +33,8 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import { getImgStr } from "@/utils/utils";
 import { v4 as uuid } from 'uuid';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const fabric = inject("fabric")
 const canvas = inject("canvas")
 let insertType = ref('string')

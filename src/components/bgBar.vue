@@ -1,17 +1,17 @@
 <template>
   <div>
-    <el-divider content-position="left">颜色</el-divider>
+    <el-divider content-position="left">{{ t('color') }}</el-divider>
     <el-form :label-width="40">
-      <el-form-item label="颜色" prop="name">
+      <el-form-item :label="t('color')" prop="name">
         <el-color-picker v-model="color" @change="setThisColor" size="small" />
       </el-form-item>
-      <el-form-item label="图片" prop="name">
+      <el-form-item :label="t('picture')" prop="name">
         <el-button @click="insert" :icon="UploadFilled" size="small">
-          上传背景
+          {{ t('upload_background') }}
         </el-button>
       </el-form-item>
     </el-form>
-    <el-divider content-position="left">配色</el-divider>
+    <el-divider content-position="left">{{ t('color_macthing') }}</el-divider>
     <div class="color-list">
       <template v-for="(item, i) in colorList" :key="item.label + i">
         <div class="item">
@@ -20,7 +20,7 @@
         </div>
       </template>
     </div>
-    <el-divider content-position="left">背景纹理</el-divider>
+    <el-divider content-position="left">{{ t('background_texture') }}</el-divider>
     <div>
       <img src="@/assets/1.png" @click="(e) => setBgImg(e.target)" class="img" />
       <img src="@/assets/2.png" @click="(e) => setBgImg(e.target)" class="img" alt="" />
@@ -28,13 +28,13 @@
       <img src="@/assets/4.png" @click="(e) => setBgImg(e.target)" class="img" alt="" />
       <img src="@/assets/5.png" @click="(e) => setBgImg(e.target)" class="img" alt="" />
     </div>
-    <el-dialog v-model="showModal" title="请选择背景图片">
+    <el-dialog v-model="showModal" :title="t('alert.select_image')">
       <el-upload :before-upload="handleUpload" action="#" :auto-upload="false">
-        <el-button :icon="UploadFilled">选择图片文件</el-button>
+        <el-button :icon="UploadFilled">{{ t('select_image') }}</el-button>
       </el-upload>
       <template #footer>
-        <el-button @click="showModal = false" size="small">取消</el-button>
-        <el-button @click="insertImgFile" size="small">确定</el-button>
+        <el-button @click="showModal = false" size="small">{{ t('alert.cancel') }}</el-button>
+        <el-button @click="insertImgFile" size="small">{{ t('alert.confirm') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -44,33 +44,34 @@
 import { ElMessage } from 'element-plus'
 import { UploadFilled } from '@element-plus/icons-vue'
 import { getImgStr } from "@/utils/utils";
-
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 let showModal = ref(false)
 let color = ref('')
 let imgFile = ref('')
 let colorList = reactive([
   {
-    label: '方案1',
+    label: t('scenary_x', {number: 1}),
     color: ['#5F2B63', '#B23554', '#F27E56', '#FCE766']
   },
   {
-    label: '方案2',
+    label: t('scenary_x', {number: 2}),
     color: ['#86DCCD', '#E7FDCB', '#FFDC84', '#F57677']
   },
   {
-    label: '方案3',
+    label: t('scenary_x', {number: 3}),
     color: ['#5FC2C7', '#98DFE5', '#C2EFF3', '#DDFDFD']
   },
   {
-    label: '方案4',
+    label: t('scenary_x', {number: 4}),
     color: ['#9EE9D3', '#2FC6C8', '#2D7A9D', '#48466d']
   },
   {
-    label: '方案5',
+    label: t('scenary_x', {number: 5}),
     color: ['#61c0bf', '#bbded6', '#fae3d9', '#ffb6b9']
   },
   {
-    label: '方案6',
+    label: t('scenary_x', {number: 6}),
     color: ['#ffaaa5', '#ffd3b6', '#dcedc1', '#a8e6cf']
   }
 ])
@@ -100,7 +101,7 @@ const insert = () => {
 // 确认插入图片
 const insertImgFile = () => {
   if (imgFile.value === '') {
-    return ElMessage.error('请选择文件')
+    return ElMessage.error(t('alert.select_file'))
   }
   const imgEl = document.createElement('img');
   imgEl.src = imgFile.value

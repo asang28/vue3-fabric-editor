@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-divider content-position="left">共同要素</el-divider>
+    <el-divider content-position="left">{{ t('common_elements') }}</el-divider>
     <div class="tool-box">
       <span @click="addText">
         <svg t="1650875455324" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -43,28 +43,30 @@
         </svg>
       </span>
     </div>
-    <el-divider content-position="left">快捷导航</el-divider>
+    <el-divider content-position="left">{{ t('quick_navigation') }}</el-divider>
     <div>
-      <a href="https://color.uisdc.com/pick.html" target="_blank">配色</a>
+      <a href="https://color.uisdc.com/pick.html" target="_blank">{{ t('color_macthing') }}</a>
       <el-divider direction="vertical" />
-      <a href="https://www.svgrepo.com/" target="_blank">素材</a>
+      <a href="https://www.svgrepo.com/" target="_blank">{{ t('material') }}</a>
       <el-divider direction="vertical" />
-      <a href="https://unsplash.com/" target="_blank">图片</a>
+      <a href="https://unsplash.com/" target="_blank">{{ t('picture') }}</a>
       <el-divider direction="vertical" />
-      <a href="https://www.pexels.com/zh-cn/search/%E8%83%8C%E6%99%AF/" target="_blank">背景色</a>
+      <a href="https://www.pexels.com/zh-cn/search/%E8%83%8C%E6%99%AF/" target="_blank">{{ t('background') }}</a>
     </div>
   </div>
 </template>
 
 <script setup>
 import { v4 as uuid } from 'uuid';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const canvas = inject("canvas")
 const fabric = inject("fabric")
 const defaultPosition = {
   left: 100, top: 100, shadow: '', fontFamily: 'arial'
 }
 const addText = () => {
-  const text = new fabric.IText('万事大吉', {
+  const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
     fontSize: 40, id: uuid(),
   });
