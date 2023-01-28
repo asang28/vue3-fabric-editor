@@ -1,85 +1,83 @@
 <template>
-  <div class="home">
-    <el-container>
-      <el-header v-if="show">
-        <!-- 导入 -->
-        <import-json></import-json>
-        &nbsp;
-        <import-svg></import-svg>
-        &nbsp;
-        <import-img></import-img>
-        &nbsp;
-        <!-- 对齐方式 -->
-        <align></align>
-        &nbsp;
-        <flip></flip>
-        &nbsp;
-        <center-align></center-align>
-        &nbsp;
-        <group></group>
-        &nbsp;
-        <zoom></zoom>
-        &nbsp;
-        <lock></lock>
-        &nbsp;
-        <dele></dele>
-        <clone></clone>
-        <div style=" float:right;">
-          <lang />  
-          <save></save>
-        </div>
-      </el-header>
-      <el-main style="display: flex; height: calc(100vh - 64px);">
-        <div v-if="show" style="width: 380px; height: 100%; background:#fff; display: flex">
-          <el-menu :default-active="menuActive" accordion @select="index => menuActive = index" width="80px">
-            <el-menu-item index="1" style="padding:10px">
-              <el-icon>
-                <Promotion />
-              </el-icon>{{ t('templates') }}
-            </el-menu-item>
-            <el-menu-item index="2" style="padding:10px">
-              <el-icon>
-                <EditPen />
-              </el-icon>{{ t('elements') }}
-            </el-menu-item>
-            <el-menu-item index="3" style="padding:10px">
-              <el-icon>
-                <Operation />
-              </el-icon>{{ t('background') }}
-            </el-menu-item>
-          </el-menu>
-          <div class="content">
-            <!-- 生成模板 -->
-            <div v-show="menuActive === '1'" class="left-panel">
-              <import-tmpl></import-tmpl>
-            </div>
-            <!-- 常用元素 -->
-            <div v-show="menuActive === '2'" class="left-panel">
-              <tools></tools>
-              <svgEl></svgEl>
-            </div>
-            <!-- 背景设置 -->
-            <div v-show="menuActive === '3'" class="left-panel">
-              <set-size></set-size>
-              <bg-bar></bg-bar>
-            </div>
+  <el-container>
+    <el-header v-if="show">
+      <!-- 导入 -->
+      <import-json></import-json>
+      &nbsp;
+      <import-svg></import-svg>
+      &nbsp;
+      <import-img></import-img>
+      &nbsp;
+      <!-- 对齐方式 -->
+      <align></align>
+      &nbsp;
+      <flip></flip>
+      &nbsp;
+      <center-align></center-align>
+      &nbsp;
+      <group></group>
+      &nbsp;
+      <zoom></zoom>
+      &nbsp;
+      <lock></lock>
+      &nbsp;
+      <dele></dele>
+      <clone></clone>
+      <div style=" float:right;">
+        <lang />
+        <save></save>
+      </div>
+    </el-header>
+    <el-main style="display: flex; height: calc(100vh - 64px);">
+      <div v-if="show" style="width: 380px; height: 100%; background:#fff; display: flex">
+        <el-menu :default-active="menuActive" accordion @select="index => menuActive = index" width="80px">
+          <el-menu-item index="1" style="padding:10px">
+            <el-icon>
+              <Promotion />
+            </el-icon>{{ t('templates') }}
+          </el-menu-item>
+          <el-menu-item index="2" style="padding:10px">
+            <el-icon>
+              <EditPen />
+            </el-icon>{{ t('elements') }}
+          </el-menu-item>
+          <el-menu-item index="3" style="padding:10px">
+            <el-icon>
+              <Operation />
+            </el-icon>{{ t('background') }}
+          </el-menu-item>
+        </el-menu>
+        <div class="content">
+          <!-- 生成模板 -->
+          <div v-show="menuActive === '1'" class="left-panel">
+            <import-tmpl></import-tmpl>
+          </div>
+          <!-- 常用元素 -->
+          <div v-show="menuActive === '2'" class="left-panel">
+            <tools></tools>
+            <svgEl></svgEl>
+          </div>
+          <!-- 背景设置 -->
+          <div v-show="menuActive === '3'" class="left-panel">
+            <set-size></set-size>
+            <bg-bar></bg-bar>
           </div>
         </div>
-        <!-- 画布区域 -->
-        <div style="width: 100%;position: relative; background:#F1F1F1;">
-          <div class="canvas-box">
-            <canvas id="canvas"></canvas>
-          </div>
+      </div>
+      <!-- 画布区域 -->
+      <div style="width: 100%;position: relative; overflow: hidden; background:#F1F1F1;">
+        <div class="canvas-box">
+          <canvas id="canvas"></canvas>
         </div>
-        <!-- 属性区域 -->
-        <div style="width: 380px; height: 100%; padding:10px; overflow-y: auto; background:#fff">
-          <history v-if="show"></history>
-          <layer v-if="show"></layer>
-          <attribute v-if="show"></attribute>
-        </div>
-      </el-main>
-    </el-container>
-  </div>
+      </div>
+      <!-- 属性区域 -->
+      <div style="width: 380px; height: 100%; padding-left:10px; overflow-y: auto; background:#fff">
+        <history v-if="show"></history>
+        <layer v-if="show"></layer>
+        <attribute v-if="show"></attribute>
+      </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script setup>
@@ -128,6 +126,7 @@ let mSelectIds = ref([])// 选择id
 let event = new EventHandle()
 let canvas = {}
 
+
 event.setMaxListeners(50)
 provide("canvas", canvas)
 provide("fabric", fabric)
@@ -166,6 +165,8 @@ onMounted(() => {
   canvas.set('backgroundColor', '#fff')
   show.value = true
 
+  windowsLoadEvt(canvas)
+
   event.init(canvas)
   hotKeyOnLRDU.call(canvas)
   hotKeyOnBackSpace.call(canvas)
@@ -175,6 +176,65 @@ onMounted(() => {
   setRemoveIcon()
   setControlsStyle(fabric)
 })
+
+//获取鼠标坐标
+function getMouse(e) {
+  var pointer = canvas.getPointer(e.e);
+  var posX = Math.floor(pointer.x);
+  var posY = Math.floor(pointer.y);
+  console.log(posX + " " + posY);
+}
+
+//添加鼠标事件
+const windowsLoadEvt = (canvas) => {
+  canvas.on('mouse:down', (e) => {
+    getMouse(e);
+  });
+
+  canvas.on('mouse:down', opt => { // 鼠标按下时触发
+    let evt = opt.e
+    if (evt.altKey === true) { // 是否按住alt
+      canvas.selection = false;
+      canvas.isDragging = true // isDragging 是自定义的
+      canvas.lastPosX = evt.clientX // lastPosX 是自定义的
+      canvas.lastPosY = evt.clientY // lastPosY 是自定义的
+    }
+  })
+
+  canvas.on('mouse:move', opt => { // 鼠标移动时触发
+    if (canvas.isDragging) {
+      let evt = opt.e
+      let vpt = canvas.viewportTransform // 聚焦视图的转换
+      vpt[4] += evt.clientX - canvas.lastPosX
+      vpt[5] += evt.clientY - canvas.lastPosY
+      canvas.requestRenderAll()
+      canvas.lastPosX = evt.clientX
+      canvas.lastPosY = evt.clientY
+    }
+  })
+
+  canvas.on('mouse:up', opt => { // 鼠标松开时触发
+    canvas.setViewportTransform(canvas.viewportTransform) // 设置此画布实例的视口转换  
+    canvas.isDragging = false
+  })
+
+  canvas.on('mouse:wheel', opt => {
+    let delta = opt.e.deltaY // 滚轮，向上滚一下是 -100，向下滚一下是 100
+    let zoom = canvas.getZoom() // 获取画布当前缩放值
+    zoom *= 0.999 ** delta
+    if (zoom > 5) zoom = 5
+    if (zoom < 0.5) zoom = 0.5
+    canvas.zoomToPoint({ // 关键点
+      x: opt.e.offsetX,
+      y: opt.e.offsetY
+    },
+      zoom
+    )
+    opt.e.preventDefault()
+    opt.e.stopPropagation()
+  })
+}
+
 const setRemoveIcon = () => {
   var deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
   var img = document.createElement('img');
@@ -230,7 +290,7 @@ const setControlsStyle = (fabric) => {
 
 .home,
 .el-container {
-  height: 100vh;
+  height: 96vh;
 }
 
 .icon {
@@ -253,7 +313,6 @@ const setControlsStyle = (fabric) => {
 .content {
   flex: 1;
   width: 200px;
-  padding: 10px;
   padding-top: 0;
   height: 100%;
   overflow-y: auto;
