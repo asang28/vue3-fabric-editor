@@ -68,6 +68,7 @@
 
 <script setup>
 let mSelectMode = inject('mSelectMode')
+let canvas = inject('canvas')
 // 非多选时，禁止组合对齐操作
 const notMultiple = () => {
   return mSelectMode.value !== 'multiple'
