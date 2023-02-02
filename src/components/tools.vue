@@ -43,6 +43,29 @@
         </svg>
       </span>
     </div>
+    <el-divider content-position="left">{{ t('draw_elements') }}</el-divider>
+    <div class="tool-box">
+      <span @click="drawingLineModeSwitch(false)" :class="isDrawingLineMode && !isArrow && 'bg'">
+        <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="4206" width="20" height="20">
+          <path
+            d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z"
+            fill="" p-id="4207"></path>
+          <path
+            d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z"
+            fill="" p-id="4208"></path>
+        </svg>
+      </span>
+      <span @click="drawingLineModeSwitch(true)" :class="isDrawingLineMode && isArrow && 'bg'">
+        <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
+        <svg t="1673026778912" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="2659" width="20" height="20">
+          <path
+            d="M320 738.133333L827.733333 230.4l-29.866666-29.866667L290.133333 708.266667v-268.8h-42.666666v341.333333h341.333333v-42.666667H320z"
+            fill="#444444" p-id="2660"></path>
+        </svg>
+      </span>
+    </div>
     <el-divider content-position="left">{{ t('quick_navigation') }}</el-divider>
     <div>
       <a href="https://color.uisdc.com/pick.html" target="_blank">{{ t('color_macthing') }}</a>
@@ -59,12 +82,22 @@
 <script setup>
 import { v4 as uuid } from 'uuid';
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-const canvas = inject("canvas")
-const fabric = inject("fabric")
+import initializeLineDrawing from '@/core/initializeLineDrawing';
 const defaultPosition = {
   left: 100, top: 100, shadow: '', fontFamily: 'arial'
 }
+let isDrawingLineMode = ref(false)
+let isArrow = ref(false)
+let drawHandler = ref()
+const { t } = useI18n()
+const canvas = inject("canvas")
+const fabric = inject("fabric")
+
+onMounted(() => {
+  // 线条绘制
+  drawHandler.value = initializeLineDrawing(canvas.c, defaultPosition)
+})
+
 const addText = () => {
   const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
@@ -126,6 +159,17 @@ const addRect = () => {
   canvas.c.add(circle)
   canvas.c.setActiveObject(circle);
 }
+
+const drawingLineModeSwitch = isArrowPro => {
+  isArrow.value = isArrowPro
+  isDrawingLineMode.value = !isDrawingLineMode.value
+  drawHandler.value.setMode(isDrawingLineMode.value)
+  drawHandler.value.setArrow(isArrowPro)
+  canvas.c.forEachObject(obj => {
+    obj.selectable = !isDrawingLineMode.value;
+    obj.evented = !isDrawingLineMode.value;
+  })
+}
 </script>
 
 <style scoped lang="less">
@@ -144,6 +188,16 @@ const addRect = () => {
     &:hover {
       background: #edf9ff;
 
+      svg {
+        fill: #2d8cf0;
+      }
+    }
+  }
+
+  .bg {
+    background: #d8d8d8;
+
+    &:hover {
       svg {
         fill: #2d8cf0;
       }

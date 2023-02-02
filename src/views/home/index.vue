@@ -112,9 +112,15 @@ import attribute from '@/components/attribute.vue'
 
 // 功能组件
 import EventHandle from '@/utils/eventHandler'
-import { hotKeyOnLRDU, hotKeyOnBackSpace, hotkeyOnCtrlC, hotkeyOnCtrlV } from './modules/hotkeysModules'
 import { fabric } from 'fabric';
 
+// 对齐辅助线
+import initAligningGuidelines from '@/core/initAligningGuidelines';
+import initControlsRotate from '@/core/initControlsRotate';
+import initHotkeys from '@/core/initHotKeys';
+import initControls from '@/core/initControls';
+
+//国际化
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
@@ -168,10 +174,10 @@ onMounted(() => {
   windowsLoadEvt(canvas)
 
   event.init(canvas)
-  hotKeyOnLRDU.call(canvas)
-  hotKeyOnBackSpace.call(canvas)
-  hotkeyOnCtrlC.call(canvas)
-  hotkeyOnCtrlV.call(canvas)
+  initAligningGuidelines(canvas)
+  initHotkeys(canvas)
+  initControls(canvas)
+  initControlsRotate(canvas)
   // 选中后的删除图标
   setRemoveIcon()
   setControlsStyle(fabric)
@@ -313,6 +319,7 @@ const setControlsStyle = (fabric) => {
 .content {
   flex: 1;
   width: 200px;
+  padding: 10px;
   padding-top: 0;
   height: 100%;
   overflow-y: auto;

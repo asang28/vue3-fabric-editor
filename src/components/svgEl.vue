@@ -122,7 +122,7 @@ const addItem = (e) => {
 <style scoped lang="less">
 img {
   display: inline-block;
-  width: 53px;
+  width: 52px;
   margin-left: 2px;
   margin-bottom: 2px;
   background: #F5F5F5;
