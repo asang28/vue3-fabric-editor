@@ -26,4 +26,7 @@ const elLocale = computed(() => ELEMENTLANGMAP[langStore.lang] || zhCn)
 svg {
   vertical-align: text-top;
 }
+.el-button--small {
+  padding: 5px 7px;
+}
 </style>
