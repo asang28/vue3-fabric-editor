@@ -1,8 +1,6 @@
 <template>
     <el-button size="small">
-        <el-dropdown 
-            teleported
-            @command="saveWith">
+        <el-dropdown teleported @command="saveWith">
             <span>
                 {{ curLang }}
                 <el-icon>
@@ -10,11 +8,11 @@
                 </el-icon>
             </span>
             <template #dropdown>
-            <el-dropdown-menu>
-                <el-dropdown-item command="zhCn">简体中文</el-dropdown-item>
-                <el-dropdown-item command="en">English</el-dropdown-item>
-                <el-dropdown-item command="pt">Portugal</el-dropdown-item>
-            </el-dropdown-menu>
+                <el-dropdown-menu>
+                    <el-dropdown-item command="zhCn">简体中文</el-dropdown-item>
+                    <el-dropdown-item command="en">English</el-dropdown-item>
+                    <el-dropdown-item command="pt">Portugal</el-dropdown-item>
+                </el-dropdown-menu>
             </template>
         </el-dropdown>
     </el-button>
@@ -32,9 +30,10 @@ const LANGMAP = {
     pt: 'Portugal'
 }
 
-const curLang = LANGMAP[langStore.lang]
+let curLang = ref(LANGMAP[langStore.lang])
 
 const saveWith = type => {
+    curLang.value = LANGMAP[type]
     locale.value = type
     langStore.changeLang(type)
 }
