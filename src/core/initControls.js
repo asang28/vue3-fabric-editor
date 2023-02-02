@@ -45,7 +45,7 @@ function initControls(canvas) {
     setControlsStyle()
 }
 
-function setControlsStyle(){
+function setControlsStyle() {
     fabric.Object.prototype.transparentCorners = false;
     fabric.Object.prototype.cornerSize = 10;
     fabric.Object.prototype.cornerStrokeColor = '#C2C2C2';
