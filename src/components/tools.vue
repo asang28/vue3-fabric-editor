@@ -2,7 +2,7 @@
   <div>
     <el-divider content-position="left">{{ t('common_elements') }}</el-divider>
     <div class="tool-box">
-      <span @click="addText">
+      <span :draggable="true" @dragend="onDragend('text')" @click="addText">
         <svg t="1650875455324" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="5401" width="26" height="26">
           <path
@@ -10,7 +10,7 @@
             p-id="5402"></path>
         </svg>
       </span>
-      <span @click="addTextBox">
+      <span :draggable="true" @dragend="onDragend('textBox')" @click="addTextBox">
         <svg t="1650854954008" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="14038" width="26" height="26">
           <path
@@ -18,7 +18,7 @@
             p-id="14039"></path>
         </svg>
       </span>
-      <span @click="addRect">
+      <span :draggable="true" @dragend="onDragend('rect')" @click="addRect">
         <svg t="1650855811131" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="18499" width="26" height="26">
           <path
@@ -26,7 +26,7 @@
             p-id="18500"></path>
         </svg>
       </span>
-      <span @click="addCircle">
+      <span :draggable="true" @dragend="onDragend('circle')" @click="addCircle">
         <svg t="1650855860236" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="19440" width="26" height="26">
           <path
@@ -34,7 +34,7 @@
             p-id="19441"></path>
         </svg>
       </span>
-      <span @click="addTriangle">
+      <span :draggable="true" @dragend="onDragend('triangle')" @click="addTriangle">
         <svg t="1650874633978" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2032" width="26" height="26">
           <path
@@ -93,6 +93,48 @@ const { t } = useI18n()
 const canvas = inject("canvas")
 const fabric = inject("fabric")
 
+// 拖拽开始时就记录当前打算创建的元素类型
+const onDragend = (type) => {
+  switch (type) {
+    case 'text':
+      addText()
+      break
+    case 'textBox':
+      addTextBox()
+      break
+    case 'rect':
+      addRect()
+      break
+    case 'circle':
+      addCircle()
+      break
+    case 'triangle':
+      addTriangle()
+      break
+  }
+  defaultPosition.left = 100
+  defaultPosition.top = 100
+}
+
+canvas.c.on('drop', function (opt) {
+  // 画布元素距离浏览器左侧和顶部的距离
+  let offset = {
+    left: canvas.c.getSelectionElement().getBoundingClientRect().left,
+    top: canvas.c.getSelectionElement().getBoundingClientRect().top
+  }
+
+  // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
+  let point = {
+    x: opt.e.x - offset.left,
+    y: opt.e.y - offset.top,
+  }
+
+  // 转换后的坐标，restorePointerVpt 不受视窗变换的影响
+  let pointerVpt = canvas.c.restorePointerVpt(point)
+  defaultPosition.left = pointerVpt.x
+  defaultPosition.top = pointerVpt.y
+})
+
 onMounted(() => {
   // 线条绘制
   drawHandler.value = initializeLineDrawing(canvas.c, defaultPosition)
@@ -125,28 +167,7 @@ const addTextBox = () => {
   canvas.c.add(text)
   canvas.c.setActiveObject(text);
 }
-const addTriangle = () => {
-  const triangle = new fabric.Triangle({
-    top: 100,
-    left: 100,
-    width: 100,
-    height: 100,
-    fill: '#92706B'
-  })
-  canvas.c.add(triangle)
-  canvas.c.setActiveObject(triangle);
-}
-const addCircle = () => {
-  const circle = new fabric.Circle({
-    ...defaultPosition,
-    radius: 50,
-    fill: '#57606B',
-    id: uuid(),
-    name: '圆形'
-  });
-  canvas.c.add(circle)
-  canvas.c.setActiveObject(circle);
-}
+
 const addRect = () => {
   const circle = new fabric.Rect({
     ...defaultPosition,
@@ -160,6 +181,29 @@ const addRect = () => {
   canvas.c.setActiveObject(circle);
 }
 
+const addCircle = () => {
+  const circle = new fabric.Circle({
+    ...defaultPosition,
+    radius: 50,
+    fill: '#57606B',
+    id: uuid(),
+    name: '圆形'
+  });
+  canvas.c.add(circle)
+  canvas.c.setActiveObject(circle);
+}
+
+
+const addTriangle = () => {
+  const triangle = new fabric.Triangle({
+    ...defaultPosition,
+    width: 100,
+    height: 100,
+    fill: '#92706B'
+  })
+  canvas.c.add(triangle)
+  canvas.c.setActiveObject(triangle);
+}
 const drawingLineModeSwitch = isArrowPro => {
   isArrow.value = isArrowPro
   isDrawingLineMode.value = !isDrawingLineMode.value

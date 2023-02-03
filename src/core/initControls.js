@@ -52,6 +52,7 @@ function setControlsStyle() {
     fabric.Object.prototype.cornerColor = '#ffffff';
     fabric.Object.prototype.cornerStyle = 'circle';
     fabric.Object.prototype.borderColor = '#85CCF9';
+    fabric.Object.prototype.zIndex = 999;
 }
 
 

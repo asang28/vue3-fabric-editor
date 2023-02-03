@@ -30,8 +30,8 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
-let width = ref(900 * 0.5)
-let height = ref(1200 * 0.5)
+let width = ref(2000)
+let height = ref(2000)
 let presetSize = reactive([{
   label: '红书竖版',
   width: 900,

@@ -15,7 +15,7 @@
     <div class="color-list">
       <template v-for="(item, i) in colorList" :key="item.label + i">
         <div class="item">
-          {{ item.label }}:
+          <em style="font-size:small">{{ item.label }}:</em>
           <span v-for="color in item.color" :key="color" :style="`background:${color}`" @click="setColor(color)"></span>
         </div>
       </template>
@@ -51,27 +51,27 @@ let color = ref('')
 let imgFile = ref('')
 let colorList = reactive([
   {
-    label: t('scenary_x', {number: 1}),
+    label: t('scenary_x', { number: 1 }),
     color: ['#5F2B63', '#B23554', '#F27E56', '#FCE766']
   },
   {
-    label: t('scenary_x', {number: 2}),
+    label: t('scenary_x', { number: 2 }),
     color: ['#86DCCD', '#E7FDCB', '#FFDC84', '#F57677']
   },
   {
-    label: t('scenary_x', {number: 3}),
+    label: t('scenary_x', { number: 3 }),
     color: ['#5FC2C7', '#98DFE5', '#C2EFF3', '#DDFDFD']
   },
   {
-    label: t('scenary_x', {number: 4}),
+    label: t('scenary_x', { number: 4 }),
     color: ['#9EE9D3', '#2FC6C8', '#2D7A9D', '#48466d']
   },
   {
-    label: t('scenary_x', {number: 5}),
+    label: t('scenary_x', { number: 5 }),
     color: ['#61c0bf', '#bbded6', '#fae3d9', '#ffb6b9']
   },
   {
-    label: t('scenary_x', {number: 6}),
+    label: t('scenary_x', { number: 6 }),
     color: ['#ffaaa5', '#ffd3b6', '#dcedc1', '#a8e6cf']
   }
 ])

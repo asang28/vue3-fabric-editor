@@ -65,7 +65,7 @@
         </div>
       </div>
       <!-- 画布区域 -->
-      <div style="width: 100%;position: relative; overflow: hidden; background:#F1F1F1;">
+      <div style="width: 100%; overflow: hidden; background:#F1F1F1;">
         <div class="canvas-box">
           <canvas id="canvas"></canvas>
         </div>
@@ -261,15 +261,13 @@ const windowsLoadEvt = (canvas) => {
 }
 
 .canvas-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  overflow: hidden;
+  width: 98%;
+  margin: 1%;
+  height: 98%;
 }
 
 #canvas {
-  width: 300px;
-  height: 300px;
   margin: 0 auto;
 }
 
@@ -278,7 +276,7 @@ const windowsLoadEvt = (canvas) => {
   width: 200px;
   padding: 10px;
   padding-top: 0;
-  height: 100%;
+  height: 95%;
   overflow-y: auto;
 }
 </style>
