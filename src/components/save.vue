@@ -42,6 +42,8 @@ const saveWith = (type) => {
 }
 const saveJson = () => {
   const dataUrl = canvas.c.toJSON(['id'])
+  dataUrl.width = canvas.c.width
+  dataUrl.height = canvas.c.height
   const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(dataUrl, null, '\t'))}`;
   downFile(fileStr, 'json')
 }

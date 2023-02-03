@@ -41,9 +41,15 @@ const insertSvgFile = () => {
   }
   // 加载字体后导入
   downFontByJSON(jsonFile.value).then(() => {
-    canvas.c.loadFromJSON(jsonFile.value, canvas.c.renderAll.bind(canvas.c));
+    let obj = JSON.parse(jsonFile.value);
+    canvas.c.setWidth(obj.width);
+    canvas.c.setHeight(obj.height);
+    canvas.c.renderAll()
+    delete obj.width
+    delete obj.height
+    canvas.c.loadFromJSON(JSON.stringify(obj), canvas.c.renderAll.bind(canvas.c));
+    showModal.value = false
   })
-  showModal.value = false
 }
 const handleUpload = (file) => {
   const reader = new FileReader();
